@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVote Horizon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="Dvote.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --primary: #6D4E8C;
+            --secondary: #3F2A56;
+            --accent: #D3C4E3;
+            --background-light: #F5F5F5;
+            --background-dark: #1E1A2A;
+            --card-bg-light: rgba(211, 196, 227, 0.9);
+            --card-bg-dark: rgba(63, 42, 86, 0.9);
+            --text-light: #333333;
+            --text-dark: #E0E0E0;
+            --gradient: linear-gradient(135deg, #D3C4E3 0%, #6D4E8C 50%, #3F2A56 100%);
+            --shadow: 0 8px 32px rgba(63, 42, 86, 0.3);
+            --glass-bg: rgba(211, 196, 227, 0.1);
+            --glass-border: 1px solid rgba(211, 196, 227, 0.2);
+        }
+    
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        body {
+            min-height: 100vh;
+            background: var(--gradient);
+            color: var(--text-light);
+            position: relative;
+            overflow-x: hidden;
+        }
+    
+        body.dark-mode {
+            background: var(--background-dark);
+            color: var(--text-dark);
+        }
+    
+        body.dark-mode .card-bg, body.dark-mode .container {
+            background: var(--card-bg-dark);
+        }
+    
+        body.dark-mode .text-primary {
+            color: var(--accent);
+        }
+    
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+    
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+    
+        .wrapper {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+    
+        .header .title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: glow 2s infinite alternate;
+        }
+    
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(211, 196, 227, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(63, 42, 86, 0.8); }
+        }
+    
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #E0E0E0;
+            opacity: 0.8;
+        }
+    
+        .container {
+            background: var(--card-bg-light);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+    
+        .container:hover {
+            transform: translateY(-5px);
+        }
+    
+        .container-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+    
+        .container-header i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-right: 15px;
+            animation: pulse 1.5s infinite;
+        }
+    
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    
+        .container-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .container-body {
+            padding: 20px;
+        }
+    
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+    
+        .btn i {
+            margin-right: 8px;
+        }
+    
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(109, 78, 140, 0.3);
+        }
+    
+        .btn:active {
+            transform: translateY(0);
+        }
+    
+        .btn-primary {
+            background: var(--gradient);
+        }
+    
+        .btn-success {
+            background: linear-gradient(135deg, #38b000, #2a9000);
+        }
+    
+        .btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    
+        .wallet-section {
+            text-align: center;
+        }
+    
+        #connectWallet {
+            font-size: 1.2rem;
+            padding: 15px 40px;
+        }
+    
+        .connected-address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            color: #E0E0E0;
+            font-size: 1rem;
+            margin: 20px 0;
+        }
+    
+        .connected-address i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+    
+        .address-text {
+            font-family: monospace;
+            font-weight: 600;
+        }
+    
+        .form-group {
+            margin-bottom: 20px;
+        }
+    
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+    
+        body.dark-mode label {
+            color: var(--text-dark);
+        }
+    
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: all 0.3s ease;
+        }
+    
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(109, 78, 140, 0.3);
+        }
+    
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+    
+        .status i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+    
+        .success {
+            color: #38b000;
+            border-left: 4px solid #38b000;
+        }
+    
+        .error {
+            color: #ff5252;
+            border-left: 4px solid #ff5252;
+        }
+    
+        .info {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+        }
+    
+        .warning {
+            color: #ffbe0b;
+            border-left: 4px solid #ffbe0b;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    
+        #candidatesList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+    
+        .candidate-card {
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+    
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(109, 78, 140, 0.3);
+        }
+    
+        .candidate-header {
+            padding: 20px;
+            background: var(--glass-bg);
+            border-bottom: var(--glass-border);
+        }
+    
+        .candidate-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+    
+        body.dark-mode .candidate-name {
+            color: var(--text-dark);
+        }
+    
+        .candidate-body {
+            padding: 20px;
+            text-align: center;
+        }
+    
+        .vote-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+    
+        .vote-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(109, 78, 140, 0.3);
+        }
+    
+        .vote-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+    
+        .results-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+    
+        .result-card {
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+    
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(109, 78, 140, 0.3);
+        }
+    
+        .result-header {
+            padding: 20px;
+            background: var(--glass-bg);
+            border-bottom: var(--glass-border);
+        }
+    
+        .result-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    
+        body.dark-mode .result-name {
+            color: var(--text-dark);
+        }
+    
+        .result-body {
+            padding: 20px;
+            text-align: center;
+        }
+    
+        .vote-count {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+            animation: countUp 1s ease-in-out;
+        }
+    
+        @keyframes countUp {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    
+        .vote-percentage {
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+    
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(211, 196, 227, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+    
+        .progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+    
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            color: #888;
+        }
+    
+        .loading i {
+            margin-right: 10px;
+            animation: spin 1s infinite linear;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    
+        .badge {
+            background: var(--accent);
+            color: #1E1A2A;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+    
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+    
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+    
+        .empty-state p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+    
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+    
+        .actions button {
+            margin-left: 10px;
+        }
+    
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            max-width: 350px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+    
+        #toast.show {
+            transform: translateX(0);
+        }
+    
+        #toast i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+    
+        #toast.success-toast {
+            background: linear-gradient(135deg, #38b000, #2a9000);
+        }
+    
+        #toast.error-toast {
+            background: linear-gradient(135deg, #ff5252, #e63946);
+        }
+    
+        #toast.info-toast {
+            background: var(--gradient);
+        }
+    
+        .card-selected {
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+    
+        .card-selected::before {
+            content: "✓";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: #1E1A2A;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+    
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+    
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    
+        .modal-content {
+            background: var(--card-bg-light);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+    
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+    
+        .modal-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .modal-content p {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+    
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+    
+        .modal-buttons .btn {
+            padding: 10px 30px;
+        }
+    
+        @media (max-width: 768px) {
+            .wrapper {
+                width: 95%;
+            }
+    
+            .header .title {
+                font-size: 2rem;
+            }
+    
+            .header .subtitle {
+                font-size: 1rem;
+            }
+    
+            #candidatesList, .results-list {
+                grid-template-columns: 1fr;
+            }
+    
+            .btn {
+                width: 100%;
+            }
+    
+            .actions {
+                flex-direction: column;
+            }
+    
+            .actions button {
+                margin: 5px 0;
+                width: 100%;
+            }
+    
+            .container-header {
+                flex-direction: column;
+                text-align: center;
+            }
+    
+            .container-header i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .header .title {
+                font-size: 1.8rem;
+            }
+    
+            .container-title {
+                font-size: 1.2rem;
+            }
+    
+            .vote-button, .btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+    
+            .modal-content {
+                padding: 20px;
+            }
+    
+            .modal-content h3 {
+                font-size: 1.3rem;
+            }
+    
+            .modal-content p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="wrapper">
+        <header class="header animate__animated animate__fadeIn">
+            <img src="Dvote.png" alt="DVote Horizon" height="150px" width="200px"><h1 class="title">DVote Horizon</h1>
+            <p class="subtitle">Democracy in Every Block</p>
+        </header>
+        
+        <div class="container animate__animated animate__fadeInUp" id="walletSection">
+            <div class="container-header">
+                <i class="fas fa-wallet"></i>
+                <h2 class="container-title">Wallet Connection</h2>
+            </div>
+            <div class="container-body wallet-section">
+                <button id="connectWallet" class="btn btn-primary">
+                    <i class="fas fa-plug"></i> Connect Your Wallet
+                </button>
+                <div class="connected-address hidden" id="connectedAddress">
+                    <i class="fas fa-check-circle"></i> Connected: 
+                    <span class="address-text" id="userAddress"></span>
+                </div>
+                <div id="networkInfo" class="status info hidden">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Please connect to the Sepolia testnet to use this application.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container animate__animated animate__fadeInUp hidden" id="adminSection">
+            <div class="container-header">
+                <i class="fas fa-user-shield"></i>
+                <h2 class="container-title">Admin Panel</h2>
+            </div>
+            <div class="container-body">
+                <div class="form-group">
+                    <label for="candidateName">Candidate Name:</label>
+                    <input type="text" id="candidateName" placeholder="Enter candidate name">
+                </div>
+                <button id="addCandidateBtn" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Add Candidate
+                </button>
+                <div id="addCandidateStatus" class="status hidden"></div>
+            </div>
+        </div>
+
+        <div class="container animate__animated animate__fadeInUp hidden" id="votingSection">
+            <div class="container-header">
+                <i class="fas fa-vote-yea"></i>
+                <h2 class="container-title">Cast Your Vote</h2>
+            </div>
+            <div class="container-body">
+                <div id="candidatesList">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i> Loading candidates...
+                    </div>
+                </div>
+                <div id="votingStatus" class="status hidden"></div>
+            </div>
+        </div>
+
+        <div class="container animate__animated animate__fadeInUp hidden" id="resultsSection">
+            <div class="container-header">
+                <i class="fas fa-chart-bar"></i>
+                <h2 class="container-title">Live Results</h2>
+            </div>
+            <div class="container-body">
+                <button id="refreshResultsBtn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Refresh Results
+                </button>
+                <div id="resultsList" class="results-list">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i> Loading results...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="success-toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <div id="voteModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Your Vote</h3>
+            <p>Are you sure you want to vote for <span id="modalCandidateName"></span>? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="confirmVote()">Confirm</button>
+                <button class="btn btn-success" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00ddeb' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#ff00e4', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Load theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+        }
+
+        const contractAddress = "0xc3aa26c3fbc912e1243d16eaa9ffa919e0c66f53";
+        const contractABI = [
+            "function owner() view returns (address)",
+            "function candidateCount() view returns (uint256)",
+            "function hasVoted(address) view returns (bool)",
+            "function candidates(uint256) view returns (string name, uint256 voteCount)",
+            "function addCandidate(string calldata) external",
+            "function vote(uint256) external",
+            "function getCandidateVotes(uint256) view returns (string memory name, uint256 voteCount)"
+        ];
+        
+        let provider;
+        let signer;
+        let contract;
+        let userAddress;
+        let isOwner = false;
+        let totalVotes = 0;
+        let selectedCandidateId = null;
+        let selectedCandidateName = '';
+        
+        const connectWalletBtn = document.getElementById('connectWallet');
+        const connectedAddressElem = document.getElementById('connectedAddress');
+        const userAddressElem = document.getElementById('userAddress');
+        const networkInfoElem = document.getElementById('networkInfo');
+        const adminSectionElem = document.getElementById('adminSection');
+        const votingSectionElem = document.getElementById('votingSection');
+        const resultsSectionElem = document.getElementById('resultsSection');
+        const candidatesListElem = document.getElementById('candidatesList');
+        const resultsListElem = document.getElementById('resultsList');
+        const candidateNameInput = document.getElementById('candidateName');
+        const addCandidateBtn = document.getElementById('addCandidateBtn');
+        const addCandidateStatusElem = document.getElementById('addCandidateStatus');
+        const votingStatusElem = document.getElementById('votingStatus');
+        const refreshResultsBtn = document.getElementById('refreshResultsBtn');
+        const toastElem = document.getElementById('toast');
+        const toastMessageElem = document.getElementById('toastMessage');
+        const voteModal = document.getElementById('voteModal');
+        const modalCandidateName = document.getElementById('modalCandidateName');
+        
+        function showToast(message, type = 'success') {
+            toastMessageElem.textContent = message;
+            toastElem.className = '';
+            toastElem.classList.add(`${type}-toast`);
+            toastElem.classList.add('show');
+            setTimeout(() => toastElem.classList.remove('show'), 5000);
+        }
+        
+        async function verifyContract() {
+            try {
+                const code = await provider.getCode(contractAddress);
+                console.log('Contract bytecode length:', code.length);
+                if (code === '0x') {
+                    showToast('Contract not deployed at specified address', 'error');
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error('Error checking contract:', error);
+                showToast('Error verifying contract: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        async function checkNetwork() {
+            const network = await provider.getNetwork();
+            console.log('Current network chainId:', network.chainId);
+            if (network.chainId !== 11155111) {
+                showToast('Please connect to Sepolia testnet', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        connectWalletBtn.addEventListener('click', async () => {
+            try {
+                if (!window.ethereum) {
+                    showToast('Please install MetaMask', 'error');
+                    return;
+                }
+
+                connectWalletBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+                connectWalletBtn.disabled = true;
+
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+                console.log('Connected address:', userAddress);
+
+                if (!await checkNetwork()) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: '0xaa36a7' }],
+                        });
+                        return;
+                    } catch (switchError) {
+                        console.error('Network switch error:', switchError);
+                        showToast('Please switch to Sepolia testnet manually', 'error');
+                        connectWalletBtn.innerHTML = '<i class="fas fa-plug"></i> Connect Wallet';
+                        connectWalletBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                if (!await verifyContract()) {
+                    connectWalletBtn.innerHTML = '<i class="fas fa-plug"></i> Connect Wallet';
+                    connectWalletBtn.disabled = false;
+                    return;
+                }
+
+                console.log('Testing contract functions...');
+
+                let ownerAddress;
+                try {
+                    ownerAddress = await contract.owner();
+                    console.log('Contract owner:', ownerAddress);
+                    isOwner = (ownerAddress.toLowerCase() === userAddress.toLowerCase());
+                    if (isOwner) {
+                        adminSectionElem.classList.remove('hidden');
+                        showToast('Admin access granted', 'info');
+                    }
+                } catch (ownerError) {
+                    console.error('Error fetching owner:', ownerError);
+                    showToast('Could not fetch contract owner: ' + ownerError.message, 'warning');
+                }
+
+                let candidateCount;
+                try {
+                    candidateCount = await contract.candidateCount();
+                    console.log('Candidate count from contract:', candidateCount.toNumber());
+                } catch (countError) {
+                    console.error('Error fetching candidateCount:', countError);
+                    showToast('Error fetching candidate count: ' + countError.message, 'error');
+                }
+
+                if (candidateCount && candidateCount.toNumber() > 0) {
+                    try {
+                        const [name, votes] = await contract.getCandidateVotes(1);
+                        console.log('Candidate 1 data:', name, votes.toNumber());
+                    } catch (votesError) {
+                        console.error('Error fetching getCandidateVotes(1):', votesError);
+                        showToast('Error fetching candidate votes: ' + votesError.message, 'error');
+                    }
+                }
+
+                let hasVotedResult;
+                try {
+                    hasVotedResult = await contract.hasVoted(userAddress);
+                    console.log('Has voted:', hasVotedResult);
+                } catch (hasVotedError) {
+                    console.error('Error fetching hasVoted:', hasVotedError);
+                    showToast('Error fetching hasVoted: ' + hasVotedError.message, 'error');
+                }
+
+                connectWalletBtn.classList.add('hidden');
+                connectedAddressElem.classList.remove('hidden');
+                userAddressElem.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(userAddress.length - 4)}`;
+                votingSectionElem.classList.remove('hidden');
+                resultsSectionElem.classList.remove('hidden');
+
+                try {
+                    console.log('Loading candidates...');
+                    await loadCandidates();
+                    console.log('Candidates loaded successfully');
+                } catch (candidatesError) {
+                    console.error('Failed to load candidates:', candidatesError);
+                    showToast('Error loading candidates: ' + candidatesError.message, 'error');
+                }
+
+                try {
+                    console.log('Loading results...');
+                    await loadResults();
+                    console.log('Results loaded successfully');
+                } catch (resultsError) {
+                    console.error('Failed to load results:', resultsError);
+                    showToast('Error loading results: ' + resultsError.message, 'error');
+                }
+
+                if (hasVotedResult) {
+                    disableVoting();
+                    showStatus(votingStatusElem, 'You have already voted.', 'info');
+                }
+                showToast('Connected successfully!', 'success');
+
+            } catch (error) {
+                console.error('Connection error:', error);
+                showToast('Failed to connect: ' + error.message, 'error');
+                connectWalletBtn.innerHTML = '<i class="fas fa-plug"></i> Connect Wallet';
+                connectWalletBtn.disabled = false;
+            }
+        });
+
+        addCandidateBtn.addEventListener('click', async () => {
+            const name = candidateNameInput.value.trim();
+            if (!name) {
+                showStatus(addCandidateStatusElem, 'Please enter a candidate name.', 'error');
+                return;
+            }
+            
+            try {
+                addCandidateBtn.disabled = true;
+                addCandidateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+                showStatus(addCandidateStatusElem, 'Adding candidate, please confirm the transaction...', 'info');
+                
+                const tx = await contract.addCandidate(name);
+                showStatus(addCandidateStatusElem, 'Transaction submitted, waiting for confirmation...', 'info');
+                
+                await tx.wait();
+                
+                showStatus(addCandidateStatusElem, `Candidate "${name}" added successfully!`, 'success');
+                showToast(`Candidate "${name}" added successfully!`, 'success');
+                candidateNameInput.value = '';
+                
+                await loadCandidates();
+                await loadResults();
+                
+            } catch (error) {
+                console.error('Error adding candidate:', error);
+                showStatus(addCandidateStatusElem, 'Error adding candidate: ' + error.message, 'error');
+                showToast('Error adding candidate', 'error');
+            } finally {
+                addCandidateBtn.disabled = false;
+                addCandidateBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Candidate';
+            }
+        });
+
+        function selectCandidate(candidateId) {
+            document.querySelectorAll('.candidate-card').forEach(card => {
+                card.classList.remove('card-selected');
+            });
+            
+            const card = document.getElementById(`candidate-${candidateId}`);
+            if (card) {
+                card.classList.add('card-selected');
+                selectedCandidateId = candidateId;
+                selectedCandidateName = card.querySelector('.candidate-name').textContent;
+                
+                document.querySelectorAll('.vote-button').forEach(btn => {
+                    if (btn.id === `vote-${candidateId}`) {
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Vote';
+                        btn.classList.add('animate__animated', 'animate__pulse');
+                        btn.onclick = () => showVoteModal();
+                    } else {
+                        btn.innerHTML = '<i class="fas fa-vote-yea"></i> Vote';
+                        btn.classList.remove('animate__animated', 'animate__pulse');
+                        btn.onclick = () => selectCandidate(parseInt(btn.id.replace('vote-', '')));
+                    }
+                });
+            }
+        }
+
+        function showVoteModal() {
+            modalCandidateName.textContent = selectedCandidateName;
+            voteModal.classList.add('show');
+        }
+
+        function closeModal() {
+            voteModal.classList.remove('show');
+        }
+
+        async function confirmVote() {
+            closeModal();
+            await submitVote();
+        }
+
+        async function submitVote() {
+            if (!selectedCandidateId) {
+                showStatus(votingStatusElem, 'Please select a candidate first.', 'warning');
+                return;
+            }
+            
+            try {
+                showStatus(votingStatusElem, 'Casting your vote, please confirm the transaction...', 'info');
+                document.querySelectorAll('.vote-button').forEach(btn => btn.disabled = true);
+                
+                const voteBtn = document.getElementById(`vote-${selectedCandidateId}`);
+                if (voteBtn) {
+                    voteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                }
+                
+                const tx = await contract.vote(selectedCandidateId);
+                showStatus(votingStatusElem, 'Transaction submitted, waiting for confirmation...', 'info');
+                
+                await tx.wait();
+                
+                showStatus(votingStatusElem, 'Your vote has been cast successfully!', 'success');
+                showToast('Vote cast successfully!', 'success');
+                
+                disableVoting();
+                await loadResults();
+                
+            } catch (error) {
+                console.error('Error voting:', error);
+                showStatus(votingStatusElem, 'Error casting vote: ' + error.message, 'error');
+                showToast('Error casting vote', 'error');
+                
+                document.querySelectorAll('.vote-button').forEach(btn => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-vote-yea"></i> Vote';
+                });
+            }
+        }
+
+        async function loadCandidates() {
+            try {
+                candidatesListElem.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading candidates...</div>';
+                
+                const count = await contract.candidateCount();
+                console.log('Candidate Count from loadCandidates:', count.toNumber());
+                
+                if (count.toNumber() === 0) {
+                    candidatesListElem.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-users-slash"></i>
+                            <p>No candidates added yet.</p>
+                            ${isOwner ? '<p>Add candidates using the admin panel above.</p>' : ''}
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let candidatesHTML = '';
+                totalVotes = 0;
+                
+                for (let i = 1; i <= count; i++) {
+                    const [name, votes] = await contract.getCandidateVotes(i);
+                    totalVotes += votes.toNumber();
+                    
+                    candidatesHTML += `
+                        <div class="candidate-card" id="candidate-${i}">
+                            <div class="candidate-header">
+                                <h3 class="candidate-name">${name}</h3>
+                            </div>
+                            <div class="candidate-body">
+                                <button class="vote-button" id="vote-${i}" onclick="selectCandidate(${i})">
+                                    <i class="fas fa-vote-yea"></i> Vote
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                candidatesListElem.innerHTML = candidatesHTML;
+                
+                const hasVoted = await contract.hasVoted(userAddress);
+                if (hasVoted) {
+                    disableVoting();
+                }
+                
+            } catch (error) {
+                console.error('Error loading candidates:', error);
+                candidatesListElem.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading candidates: ${error.message}</p>
+                    </div>
+                `;
+                throw error;
+            }
+        }
+
+        async function loadResults() {
+            try {
+                resultsListElem.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading results...</div>';
+                
+                let candidateCount;
+                try {
+                    candidateCount = (await contract.candidateCount()).toNumber();
+                    console.log('Candidate Count:', candidateCount);
+                } catch (countError) {
+                    console.error('Error fetching candidateCount:', countError);
+                    throw new Error('Failed to fetch candidate count: ' + countError.message);
+                }
+
+                if (candidateCount === 0) {
+                    resultsListElem.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>No candidates to show results for.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                try {
+                    const [testName, testVotes] = await contract.getCandidateVotes(1);
+                    console.log('Test getCandidateVotes(1):', testName, testVotes.toNumber());
+                } catch (testError) {
+                    console.error('Test getCandidateVotes(1) failed:', testError);
+                }
+
+                let resultsHTML = '';
+                totalVotes = 0;
+                
+                for (let i = 1; i <= candidateCount; i++) {
+                    try {
+                        const [_, votes] = await contract.getCandidateVotes(i);
+                        totalVotes += votes.toNumber();
+                        console.log(`Candidate ${i} votes: ${votes.toNumber()}`);
+                    } catch (innerError) {
+                        console.error(`Error fetching votes for candidate ${i}:`, innerError);
+                    }
+                }
+                
+                for (let i = 1; i <= candidateCount; i++) {
+                    try {
+                        const [name, votes] = await contract.getCandidateVotes(i);
+                        const voteCount = votes.toNumber();
+                        const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
+                        console.log(`Candidate ${i}: ${name}, Votes: ${voteCount}, Percentage: ${percentage}%`);
+                        
+                        resultsHTML += `
+                            <div class="result-card">
+                                <div class="result-header">
+                                    <h3 class="result-name">
+                                        ${name}
+                                        ${voteCount > 0 && totalVotes > 0 && percentage >= 40 ? 
+                                            '<span class="badge"><i class="fas fa-crown"></i> Leading</span>' : ''}
+                                    </h3>
+                                </div>
+                                <div class="result-body">
+                                    <div class="vote-count">${voteCount}</div>
+                                    <div class="vote-percentage">${percentage}% of votes</div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: ${percentage}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } catch (innerError) {
+                        console.error(`Error loading candidate ${i}:`, innerError);
+                        resultsHTML += `
+                            <div class="result-card">
+                                <div class="result-header">
+                                    <h3 class="result-name">Candidate ${i} (Error)</h3>
+                                </div>
+                                <div class="result-body">
+                                    <p>Error: ${innerError.message}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+                
+                resultsListElem.innerHTML = resultsHTML;
+                
+            } catch (error) {
+                console.error('Error loading results:', error);
+                resultsListElem.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading results: ${error.message}</p>
+                    </div>
+                `;
+                throw error;
+            }
+        }
+
+        function showStatus(element, message, type) {
+            element.textContent = message;
+            element.className = 'status ' + type;
+            element.classList.remove('hidden');
+        }
+
+        function disableVoting() {
+            document.querySelectorAll('.vote-button').forEach(btn => {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-lock"></i> Already Voted';
+            });
+        }
+
+        refreshResultsBtn.addEventListener('click', async () => {
+            refreshResultsBtn.disabled = true;
+            refreshResultsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            
+            await loadResults();
+            
+            refreshResultsBtn.disabled = false;
+            refreshResultsBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Results';
+            showToast('Results refreshed', 'info');
+        });
+
+        if (window.ethereum) {
+            window.ethereum.on('chainChanged', () => window.location.reload());
+            window.ethereum.on('accountsChanged', () => window.location.reload());
+        }
+
+        window.selectCandidate = selectCandidate;
+        window.submitVote = submitVote;
+        window.showVoteModal = showVoteModal;
+        window.closeModal = closeModal;
+        window.confirmVote = confirmVote;
+    </script>
+</body>
+</html>
