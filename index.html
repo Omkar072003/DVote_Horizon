@@ -19,11 +19,11 @@
             --background-dark: #1E1A2A;
             --card-bg-light: rgba(211, 196, 227, 0.9);
             --card-bg-dark: rgba(63, 42, 86, 0.9);
-            --text-light: #333333;
-            --text-dark: #E0E0E0;
+            --text-light: #1A1A1A;
+            --text-dark: #FFFFFF;
             --gradient: linear-gradient(135deg, #D3C4E3 0%, #6D4E8C 50%, #3F2A56 100%);
             --shadow: 0 8px 32px rgba(63, 42, 86, 0.3);
-            --glass-bg: rgba(211, 196, 227, 0.1);
+            --glass-bg: rgba(211, 196, 227, 0.3);
             --glass-border: 1px solid rgba(211, 196, 227, 0.2);
         }
     
@@ -67,12 +67,11 @@
     
         .theme-toggle {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 10px;
+            left: 10px;
             background: var(--glass-bg);
             border: var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 10px;
+            padding: 8px;
             border-radius: 50%;
             cursor: pointer;
             z-index: 1000;
@@ -83,12 +82,77 @@
             transform: scale(1.1);
             box-shadow: var(--shadow);
         }
+
+        .language-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            padding: 6px 12px; /* Smaller padding for a compact button */
+            border-radius: 15px; /* Smaller border radius for a compact look */
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem; /* Smaller font size */
+            font-weight: 500;
+        }
+
+        .language-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .language-toggle i {
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 8px 0;
+            margin-top: 5px;
+            z-index: 1001;
+            min-width: 120px; /* Ensure dropdown is wide enough */
+        }
+
+        .language-toggle:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: 6px 15px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .language-option {
+            color: var(--text-dark);
+        }
+
+        .language-option:hover {
+            background: var(--glass-bg);
+            color: #FFFFFF;
+        }
     
         .wrapper {
             max-width: 1200px;
             width: 90%;
-            margin: 0 auto;
+            margin: 100px auto 0; /* Increased margin-top to ensure no overlap */
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
     
         .header {
@@ -96,10 +160,22 @@
             padding: 40px 20px;
             background: var(--glass-bg);
             border: var(--glass-border);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             margin-bottom: 30px;
             box-shadow: var(--shadow);
+            position: relative;
+            z-index: 1;
+        }
+    
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .header .title {
@@ -110,6 +186,9 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             animation: glow 2s infinite alternate;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
         }
     
         @keyframes glow {
@@ -119,8 +198,11 @@
     
         .header .subtitle {
             font-size: 1.2rem;
-            color: #E0E0E0;
-            opacity: 0.8;
+            color: #FFFFFF;
+            opacity: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
     
         .container {
@@ -132,10 +214,24 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
+            z-index: 1;
         }
     
         .container:hover {
             transform: translateY(-5px);
+        }
+    
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .container-header {
@@ -144,9 +240,21 @@
             padding: 15px 20px;
             background: var(--glass-bg);
             border: var(--glass-border);
-            backdrop-filter: blur(10px);
             border-radius: 15px;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+    
+        .container-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .container-header i {
@@ -154,6 +262,8 @@
             color: var(--primary);
             margin-right: 15px;
             animation: pulse 1.5s infinite;
+            position: relative;
+            z-index: 2;
         }
     
         @keyframes pulse {
@@ -164,14 +274,19 @@
     
         .container-title {
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 2;
         }
     
         .container-body {
             padding: 20px;
+            position: relative;
+            z-index: 2;
         }
     
         .btn {
@@ -181,13 +296,16 @@
             padding: 12px 24px;
             border-radius: 50px;
             border: none;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
             background: var(--gradient);
-            color: white;
+            color: #FFFFFF;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
     
         .btn i {
@@ -233,22 +351,38 @@
             justify-content: center;
             background: var(--glass-bg);
             border: var(--glass-border);
-            backdrop-filter: blur(10px);
             padding: 15px;
             border-radius: 15px;
             color: #E0E0E0;
             font-size: 1rem;
             margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+    
+        .connected-address::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .connected-address i {
             color: var(--accent);
             margin-right: 10px;
+            position: relative;
+            z-index: 2;
         }
     
         .address-text {
             font-family: monospace;
             font-weight: 600;
+            position: relative;
+            z-index: 2;
         }
     
         .form-group {
@@ -257,14 +391,18 @@
     
         label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-light);
             margin-bottom: 10px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
     
         body.dark-mode label {
             color: var(--text-dark);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
     
         input {
@@ -272,17 +410,24 @@
             padding: 12px 15px;
             border: var(--glass-border);
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
             border-radius: 10px;
             font-size: 1rem;
-            color: #E0E0E0;
+            color: #FFFFFF;
             transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
     
         input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 10px rgba(109, 78, 140, 0.3);
+        }
+
+        input::placeholder {
+            color: #CCCCCC;
+            font-weight: 400;
         }
     
         .status {
@@ -293,32 +438,52 @@
             align-items: center;
             background: var(--glass-bg);
             border: var(--glass-border);
+            font-weight: 600;
+            color: #FFFFFF;
+            position: relative;
+            z-index: 2;
+        }
+    
+        .status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .status i {
             margin-right: 12px;
             font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
         }
     
         .success {
             color: #38b000;
             border-left: 4px solid #38b000;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
     
         .error {
             color: #ff5252;
             border-left: 4px solid #ff5252;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
     
         .info {
             color: var(--primary);
             border-left: 4px solid var(--primary);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
     
         .warning {
             color: #ffbe0b;
             border-left: 4px solid #ffbe0b;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
     
         .hidden {
@@ -339,7 +504,18 @@
             transition: all 0.3s ease;
             position: relative;
             border: var(--glass-border);
+            z-index: 1;
+        }
+    
+        .candidate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .candidate-card:hover {
@@ -351,34 +527,56 @@
             padding: 20px;
             background: var(--glass-bg);
             border-bottom: var(--glass-border);
+            position: relative;
+            z-index: 2;
+        }
+    
+        .candidate-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .candidate-name {
             font-size: 1.3rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-light);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
     
         body.dark-mode .candidate-name {
             color: var(--text-dark);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
     
         .candidate-body {
             padding: 20px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
     
         .vote-button {
             width: 100%;
             padding: 12px;
             background: var(--gradient);
-            color: white;
+            color: #FFFFFF;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
     
         .vote-button:hover {
@@ -405,7 +603,19 @@
             overflow: hidden;
             transition: all 0.3s ease;
             border: var(--glass-border);
+            position: relative;
+            z-index: 1;
+        }
+    
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .result-card:hover {
@@ -417,34 +627,56 @@
             padding: 20px;
             background: var(--glass-bg);
             border-bottom: var(--glass-border);
+            position: relative;
+            z-index: 2;
+        }
+    
+        .result-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .result-name {
             font-size: 1.3rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-light);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
     
         body.dark-mode .result-name {
             color: var(--text-dark);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
     
         .result-body {
             padding: 20px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
     
         .vote-count {
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 10px 0;
             animation: countUp 1s ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 2;
         }
     
         @keyframes countUp {
@@ -454,8 +686,12 @@
     
         .vote-percentage {
             font-size: 1.1rem;
-            color: #888;
+            color: #E0E0E0;
             margin-bottom: 15px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
     
         .progress-bar {
@@ -465,6 +701,8 @@
             border-radius: 5px;
             overflow: hidden;
             margin-top: 10px;
+            position: relative;
+            z-index: 2;
         }
     
         .progress {
@@ -480,6 +718,8 @@
             justify-content: center;
             padding: 30px;
             color: #888;
+            position: relative;
+            z-index: 2;
         }
     
         .loading i {
@@ -499,12 +739,16 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
     
         .empty-state {
             text-align: center;
             padding: 30px;
             color: #888;
+            position: relative;
+            z-index: 2;
         }
     
         .empty-state i {
@@ -530,8 +774,8 @@
     
         #toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             padding: 15px 20px;
             border-radius: 10px;
             color: white;
@@ -542,9 +786,19 @@
             align-items: center;
             background: var(--glass-bg);
             border: var(--glass-border);
-            backdrop-filter: blur(10px);
             transform: translateX(400px);
             transition: transform 0.3s ease;
+        }
+    
+        #toast::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         #toast.show {
@@ -554,6 +808,8 @@
         #toast i {
             margin-right: 12px;
             font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
         }
     
         #toast.success-toast {
@@ -621,6 +877,19 @@
             box-shadow: var(--shadow);
             transform: scale(0.7);
             transition: transform 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+    
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: -1;
         }
     
         .modal.show .modal-content {
@@ -633,12 +902,20 @@
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 2;
         }
     
         .modal-content p {
             font-size: 1rem;
-            color: #888;
+            color: #E0E0E0;
             margin-bottom: 30px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
     
         .modal-buttons {
@@ -654,6 +931,7 @@
         @media (max-width: 768px) {
             .wrapper {
                 width: 95%;
+                margin-top: 80px; /* Adjusted for smaller screens */
             }
     
             .header .title {
@@ -717,6 +995,26 @@
             .modal-content p {
                 font-size: 0.9rem;
             }
+
+            .language-toggle {
+                top: 8px;
+                right: 8px;
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            .language-toggle i {
+                font-size: 0.7rem;
+            }
+
+            .language-option {
+                font-size: 0.8rem;
+                padding: 5px 12px;
+            }
+
+            .wrapper {
+                margin-top: 70px;
+            }
         }
     </style>
 </head>
@@ -725,6 +1023,15 @@
     <button class="theme-toggle" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
     </button>
+    <div class="language-toggle" onclick="toggleLanguageDropdown()">
+        Translator <i class="fas fa-caret-down"></i>
+        <div class="language-dropdown">
+            <div class="language-option" onclick="changeLanguage('en')">English</div>
+            <div class="language-option" onclick="changeLanguage('hi')">Hindi</div>
+            <div class="language-option" onclick="changeLanguage('mr')">Marathi</div>
+            <div class="language-option" onclick="changeLanguage('ta')">Tamil</div>
+        </div>
+    </div>
     <div class="wrapper">
         <header class="header animate__animated animate__fadeIn">
             <img src="Dvote.png" alt="DVote Horizon" height="150px" width="200px"><h1 class="title">DVote Horizon</h1>
@@ -737,7 +1044,7 @@
                 <h2 class="container-title">Wallet Connection</h2>
             </div>
             <div class="container-body wallet-section">
-                <button id="connectWallet" class="btn btn-primary">
+                <button id="connectWallet" class="btn btn-primary" title="Connect your MetaMask wallet to proceed">
                     <i class="fas fa-plug"></i> Connect Your Wallet
                 </button>
                 <div class="connected-address hidden" id="connectedAddress">
@@ -818,7 +1125,6 @@
     </div>
 
     <script>
-        // Particles.js configuration
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -837,7 +1143,6 @@
             retina_detect: true
         });
 
-        // Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const icon = document.querySelector('.theme-toggle i');
@@ -846,10 +1151,118 @@
             localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
 
-        // Load theme preference
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+        }
+
+        let currentLanguage = 'en';
+
+        const translations = {
+            en: {
+                title: 'DVote Horizon',
+                subtitle: 'Democracy in Every Block',
+                walletConnection: 'Wallet Connection',
+                connectWallet: 'Connect Your Wallet',
+                adminPanel: 'Admin Panel',
+                candidateNameLabel: 'Candidate Name:',
+                addCandidate: 'Add Candidate',
+                castVote: 'Cast Your Vote',
+                liveResults: 'Live Results',
+                refreshResults: 'Refresh Results',
+                confirmVote: 'Confirm Your Vote',
+                confirm: 'Confirm',
+                cancel: 'Cancel',
+                alreadyVoted: 'Already Voted',
+                vote: 'Vote'
+            },
+            hi: {
+                title: 'डीवोट होराइजन',
+                subtitle: 'हर ब्लॉक में लोकतंत्र',
+                walletConnection: 'वॉलेट कनेक्शन',
+                connectWallet: 'अपना वॉलेट कनेक्ट करें',
+                adminPanel: 'प्रशासन पैनल',
+                candidateNameLabel: 'उम्मीदवार का नाम:',
+                addCandidate: 'उम्मीदवार जोड़ें',
+                castVote: 'अपना वोट डालें',
+                liveResults: 'लाइव परिणाम',
+                refreshResults: 'परिणाम ताज़ा करें',
+                confirmVote: 'अपना वोट पुष्टि करें',
+                confirm: 'पुष्टि करें',
+                cancel: 'रद्द करें',
+                alreadyVoted: 'पहले से वोट डाला गया',
+                vote: 'वोट करें'
+            },
+            mr: {
+                title: 'डीवोट हॉरिझॉन',
+                subtitle: 'प्रत्येक ब्लॉकमध्ये लोकशाही',
+                walletConnection: 'वॉलेट कनेक्शन',
+                connectWallet: 'आपला वॉलेट कनेक्ट करा',
+                adminPanel: 'प्रशासक पॅनल',
+                candidateNameLabel: 'उमेदवाराचे नाव:',
+                addCandidate: 'उमेदवार जोडा',
+                castVote: 'आपला मत द्या',
+                liveResults: 'लाइव्ह निकाल',
+                refreshResults: 'निकाल ताजेतवाने करा',
+                confirmVote: 'आपला मत पुष्टी करा',
+                confirm: 'पुष्टी करा',
+                cancel: 'रद्द करा',
+                alreadyVoted: 'आधीच मतदान केले आहे',
+                vote: 'मत द्या'
+            },
+            ta: {
+                title: 'டிவோட் ஹோரைசன்',
+                subtitle: 'ஒவ்வொரு பிளாக்கிலும் ஜனநாயகம்',
+                walletConnection: 'வாலட் இணைப்பு',
+                connectWallet: 'உங்கள் வாலட் இணைக்கவும்',
+                adminPanel: 'நிர்வாகி பேனல்',
+                candidateNameLabel: 'வேட்பாளர் பெயர்:',
+                addCandidate: 'வேட்பாளரை சேர்',
+                castVote: 'உங்கள் வாக்கை செலுத்தவும்',
+                liveResults: 'லைவ் முடிவுகள்',
+                refreshResults: 'முடிவுகளை புதுப்பிக்கவும்',
+                confirmVote: 'உங்கள் வாக்கை உறுதிப்படுத்தவும்',
+                confirm: 'உறுதிப்படுத்தவும்',
+                cancel: 'ரத்து செய்',
+                alreadyVoted: 'ஏற்கனவே வாக்களித்துவிட்டீர்கள்',
+                vote: 'வாக்களி'
+            }
+        };
+
+        function toggleLanguageDropdown() {
+            const dropdown = document.querySelector('.language-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            updateLanguage();
+            document.querySelector('.language-dropdown').style.display = 'none';
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLanguage];
+            document.querySelector('.title').textContent = t.title;
+            document.querySelector('.subtitle').textContent = t.subtitle;
+            document.querySelector('#walletSection .container-title').textContent = t.walletConnection;
+            document.querySelector('#connectWallet').innerHTML = `<i class="fas fa-plug"></i> ${t.connectWallet}`;
+            document.querySelector('#adminSection .container-title').textContent = t.adminPanel;
+            document.querySelector('#adminSection label').textContent = t.candidateNameLabel;
+            document.querySelector('#addCandidateBtn').innerHTML = `<i class="fas fa-plus-circle"></i> ${t.addCandidate}`;
+            document.querySelector('#votingSection .container-title').textContent = t.castVote;
+            document.querySelector('#resultsSection .container-title').textContent = t.liveResults;
+            document.querySelector('#refreshResultsBtn').innerHTML = `<i class="fas fa-sync-alt"></i> ${t.refreshResults}`;
+            document.querySelector('#voteModal h3').textContent = t.confirmVote;
+            document.querySelector('#voteModal .btn-primary').textContent = t.confirm;
+            document.querySelector('#voteModal .btn-success').textContent = t.cancel;
+
+            document.querySelectorAll('.vote-button').forEach(btn => {
+                if (!btn.disabled) {
+                    btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${t.vote}`;
+                } else {
+                    btn.innerHTML = `<i class="fas fa-lock"></i> ${t.alreadyVoted}`;
+                }
+            });
         }
 
         const contractAddress = "0xc3aa26c3fbc912e1243d16eaa9ffa919e0c66f53";
@@ -1098,7 +1511,7 @@
                         btn.classList.add('animate__animated', 'animate__pulse');
                         btn.onclick = () => showVoteModal();
                     } else {
-                        btn.innerHTML = '<i class="fas fa-vote-yea"></i> Vote';
+                        btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${translations[currentLanguage].vote}`;
                         btn.classList.remove('animate__animated', 'animate__pulse');
                         btn.onclick = () => selectCandidate(parseInt(btn.id.replace('vote-', '')));
                     }
@@ -1153,7 +1566,7 @@
                 
                 document.querySelectorAll('.vote-button').forEach(btn => {
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-vote-yea"></i> Vote';
+                    btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${translations[currentLanguage].vote}`;
                 });
             }
         }
@@ -1190,7 +1603,7 @@
                             </div>
                             <div class="candidate-body">
                                 <button class="vote-button" id="vote-${i}" onclick="selectCandidate(${i})">
-                                    <i class="fas fa-vote-yea"></i> Vote
+                                    <i class="fas fa-vote-yea"></i> ${translations[currentLanguage].vote}
                                 </button>
                             </div>
                         </div>
@@ -1322,7 +1735,7 @@
         function disableVoting() {
             document.querySelectorAll('.vote-button').forEach(btn => {
                 btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-lock"></i> Already Voted';
+                btn.innerHTML = `<i class="fas fa-lock"></i> ${translations[currentLanguage].alreadyVoted}`;
             });
         }
 
@@ -1333,7 +1746,7 @@
             await loadResults();
             
             refreshResultsBtn.disabled = false;
-            refreshResultsBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Results';
+            refreshResultsBtn.innerHTML = `<i class="fas fa-sync-alt"></i> ${translations[currentLanguage].refreshResults}`;
             showToast('Results refreshed', 'info');
         });
 
@@ -1347,6 +1760,8 @@
         window.showVoteModal = showVoteModal;
         window.closeModal = closeModal;
         window.confirmVote = confirmVote;
+
+        updateLanguage();
     </script>
 </body>
 </html>
