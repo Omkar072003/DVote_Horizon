@@ -26,995 +26,613 @@
             --glass-bg: rgba(211, 196, 227, 0.3);
             --glass-border: 1px solid rgba(211, 196, 227, 0.2);
         }
-    
-        * {
-            box-sizing: border-box;
+
+        body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-    
-        body {
-            min-height: 100vh;
-            background: var(--gradient);
+            background: var(--background-light);
             color: var(--text-light);
-            position: relative;
+            transition: all 0.3s ease;
             overflow-x: hidden;
         }
-    
+
         body.dark-mode {
             background: var(--background-dark);
             color: var(--text-dark);
         }
-    
-        body.dark-mode .card-bg, body.dark-mode .container {
-            background: var(--card-bg-dark);
-        }
-    
-        body.dark-mode .text-primary {
-            color: var(--accent);
-        }
-    
+
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
             z-index: -1;
         }
-    
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .title {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: var(--primary);
+            margin: 10px 0 0;
+        }
+
+        body.dark-mode .subtitle {
+            color: var(--accent);
+        }
+
+        .container {
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: var(--glass-border);
+        }
+
+        body.dark-mode .container {
+            background: var(--card-bg-dark);
+        }
+
+        .container-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .container-header i {
+            font-size: 1.5em;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        body.dark-mode .container-header i {
+            color: var(--accent);
+        }
+
+        .container-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        body.dark-mode .container-title {
+            color: var(--accent);
+        }
+
+        .container-body {
+            padding: 0 10px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(63, 42, 86, 0.5);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .wallet-section {
+            text-align: center;
+        }
+
+        .connected-address {
+            margin-top: 15px;
+            font-size: 1em;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        body.dark-mode .connected-address {
+            color: var(--accent);
+        }
+
+        .address-text {
+            font-family: monospace;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .status.info {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .status.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .status.warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
+
+        .status.error {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        body.dark-mode .form-group label {
+            color: var(--accent);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .form-group input {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 5px rgba(63, 42, 86, 0.5);
+        }
+
         .theme-toggle {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 20px;
+            right: 20px;
             background: var(--glass-bg);
             border: var(--glass-border);
-            padding: 8px;
+            padding: 10px;
             border-radius: 50%;
             cursor: pointer;
             z-index: 1000;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            color: var(--primary);
             transition: all 0.3s ease;
         }
-    
+
+        body.dark-mode .theme-toggle {
+            color: var(--accent);
+        }
+
         .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow);
+            background: var(--primary);
+            color: white;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: var(--accent);
+            color: var(--background-dark);
         }
 
         .language-toggle {
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 20px;
+            right: 70px;
             background: var(--glass-bg);
             border: var(--glass-border);
-            padding: 6px 12px; /* Smaller padding for a compact button */
-            border-radius: 15px; /* Smaller border radius for a compact look */
+            padding: 10px;
+            border-radius: 25px;
             cursor: pointer;
             z-index: 1000;
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            color: var(--primary);
+            font-weight: 500;
             display: flex;
             align-items: center;
-            font-size: 0.9rem; /* Smaller font size */
-            font-weight: 500;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .language-toggle {
+            color: var(--accent);
         }
 
         .language-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow);
+            background: var(--primary);
+            color: white;
         }
 
-        .language-toggle i {
-            margin-left: 5px;
-            font-size: 0.8rem;
+        body.dark-mode .language-toggle:hover {
+            background: var(--accent);
+            color: var(--background-dark);
         }
 
         .language-dropdown {
             display: none;
             position: absolute;
-            top: 100%;
+            top: 40px;
             right: 0;
             background: var(--card-bg-light);
             border-radius: 8px;
             box-shadow: var(--shadow);
-            padding: 8px 0;
-            margin-top: 5px;
+            padding: 10px;
             z-index: 1001;
-            min-width: 120px; /* Ensure dropdown is wide enough */
         }
 
-        .language-toggle:hover .language-dropdown {
-            display: block;
+        body.dark-mode .language-dropdown {
+            background: var(--card-bg-dark);
         }
 
         .language-option {
-            padding: 6px 15px;
-            color: var(--text-light);
+            padding: 5px 10px;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 0.9rem;
+            color: var(--primary);
             transition: all 0.3s ease;
         }
 
         body.dark-mode .language-option {
-            color: var(--text-dark);
+            color: var(--accent);
         }
 
         .language-option:hover {
-            background: var(--glass-bg);
-            color: #FFFFFF;
-        }
-    
-        .wrapper {
-            max-width: 1200px;
-            width: 90%;
-            margin: 100px auto 0; /* Increased margin-top to ensure no overlap */
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-    
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            position: relative;
-            z-index: 1;
-        }
-    
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .header .title {
-            font-size: 3rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            animation: glow 2s infinite alternate;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            position: relative;
-            z-index: 2;
-        }
-    
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(211, 196, 227, 0.5); }
-            100% { text-shadow: 0 0 20px rgba(63, 42, 86, 0.8); }
-        }
-    
-        .header .subtitle {
-            font-size: 1.2rem;
-            color: #FFFFFF;
-            opacity: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .container {
-            background: var(--card-bg-light);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            z-index: 1;
-        }
-    
-        .container:hover {
-            transform: translateY(-5px);
-        }
-    
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .container-header {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .container-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .container-header i {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-right: 15px;
-            animation: pulse 1.5s infinite;
-            position: relative;
-            z-index: 2;
-        }
-    
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-    
-        .container-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .container-body {
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            background: var(--gradient);
-            color: #FFFFFF;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .btn i {
-            margin-right: 8px;
-        }
-    
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(109, 78, 140, 0.3);
-        }
-    
-        .btn:active {
-            transform: translateY(0);
-        }
-    
-        .btn-primary {
-            background: var(--gradient);
-        }
-    
-        .btn-success {
-            background: linear-gradient(135deg, #38b000, #2a9000);
-        }
-    
-        .btn:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-    
-        .wallet-section {
-            text-align: center;
-        }
-    
-        #connectWallet {
-            font-size: 1.2rem;
-            padding: 15px 40px;
-        }
-    
-        .connected-address {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            padding: 15px;
-            border-radius: 15px;
-            color: #E0E0E0;
-            font-size: 1rem;
-            margin: 20px 0;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .connected-address::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .connected-address i {
-            color: var(--accent);
-            margin-right: 10px;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .address-text {
-            font-family: monospace;
-            font-weight: 600;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .form-group {
-            margin-bottom: 20px;
-        }
-    
-        label {
-            display: block;
-            font-weight: 700;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-    
-        body.dark-mode label {
-            color: var(--text-dark);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-        }
-    
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border: var(--glass-border);
-            background: var(--glass-bg);
-            border-radius: 10px;
-            font-size: 1rem;
-            color: #FFFFFF;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            z-index: 2;
-        }
-    
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(109, 78, 140, 0.3);
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
         }
 
-        input::placeholder {
-            color: #CCCCCC;
-            font-weight: 400;
+        body.dark-mode .language-option:hover {
+            background: var(--accent);
+            color: var(--background-dark);
         }
-    
-        .status {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            font-weight: 600;
-            color: #FFFFFF;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .status::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .status i {
-            margin-right: 12px;
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .success {
-            color: #38b000;
-            border-left: 4px solid #38b000;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-    
-        .error {
-            color: #ff5252;
-            border-left: 4px solid #ff5252;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-    
-        .info {
-            color: var(--primary);
-            border-left: 4px solid var(--primary);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-    
-        .warning {
-            color: #ffbe0b;
-            border-left: 4px solid #ffbe0b;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-    
+
         .hidden {
             display: none;
         }
-    
-        #candidatesList {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-    
-        .candidate-card {
-            background: var(--card-bg-light);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-            border: var(--glass-border);
-            z-index: 1;
-        }
-    
-        .candidate-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .candidate-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(109, 78, 140, 0.3);
-        }
-    
-        .candidate-header {
-            padding: 20px;
-            background: var(--glass-bg);
-            border-bottom: var(--glass-border);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .candidate-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .candidate-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-light);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-    
-        body.dark-mode .candidate-name {
-            color: var(--text-dark);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-        }
-    
-        .candidate-body {
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .vote-button {
-            width: 100%;
-            padding: 12px;
-            background: var(--gradient);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .vote-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(109, 78, 140, 0.3);
-        }
-    
-        .vote-button:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-        }
-    
-        .results-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-    
-        .result-card {
-            background: var(--card-bg-light);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: var(--glass-border);
-            position: relative;
-            z-index: 1;
-        }
-    
-        .result-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(109, 78, 140, 0.3);
-        }
-    
-        .result-header {
-            padding: 20px;
-            background: var(--glass-bg);
-            border-bottom: var(--glass-border);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .result-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
-        }
-    
-        .result-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-    
-        body.dark-mode .result-name {
-            color: var(--text-dark);
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-        }
-    
-        .result-body {
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .vote-count {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 10px 0;
-            animation: countUp 1s ease-in-out;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-            position: relative;
-            z-index: 2;
-        }
-    
-        @keyframes countUp {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-    
-        .vote-percentage {
-            font-size: 1.1rem;
-            color: #E0E0E0;
-            margin-bottom: 15px;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-    
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(211, 196, 227, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 10px;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .progress {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 5px;
-            transition: width 1s ease;
-        }
-    
+
         .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            color: #888;
-            position: relative;
-            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            color: var(--primary);
         }
-    
+
+        body.dark-mode .loading {
+            color: var(--accent);
+        }
+
         .loading i {
-            margin-right: 10px;
-            animation: spin 1s infinite linear;
+            animation: spin 1s linear infinite;
         }
-    
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-    
-        .badge {
-            background: var(--accent);
-            color: #1E1A2A;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            position: relative;
-            z-index: 2;
-        }
-    
+
         .empty-state {
             text-align: center;
-            padding: 30px;
-            color: #888;
-            position: relative;
-            z-index: 2;
+            padding: 20px;
+            color: var(--primary);
         }
-    
+
+        body.dark-mode .empty-state {
+            color: var(--accent);
+        }
+
         .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            opacity: 0.5;
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
         }
-    
-        .empty-state p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-    
-        .actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-    
-        .actions button {
-            margin-left: 10px;
-        }
-    
-        #toast {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            color: white;
-            font-weight: 500;
-            max-width: 350px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
+
+        .candidate-card, .voter-card, .result-card {
             background: var(--glass-bg);
             border: var(--glass-border);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-        }
-    
-        #toast::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
             backdrop-filter: blur(10px);
-            z-index: -1;
+            transition: all 0.3s ease;
         }
-    
-        #toast.show {
-            transform: translateX(0);
+
+        .candidate-card:hover, .voter-card:hover, .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(63, 42, 86, 0.4);
         }
-    
-        #toast i {
-            margin-right: 12px;
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 2;
+
+        .candidate-header, .voter-header, .result-header {
+            margin-bottom: 10px;
         }
-    
-        #toast.success-toast {
-            background: linear-gradient(135deg, #38b000, #2a9000);
+
+        .candidate-name, .voter-name, .result-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0;
         }
-    
-        #toast.error-toast {
-            background: linear-gradient(135deg, #ff5252, #e63946);
+
+        body.dark-mode .candidate-name,
+        body.dark-mode .voter-name,
+        body.dark-mode .result-name {
+            color: var(--accent);
         }
-    
-        #toast.info-toast {
-            background: var(--gradient);
+
+        .candidate-body, .voter-body, .result-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-    
+
+        .voter-address {
+            font-family: monospace;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .voter-address {
+            color: var(--text-dark);
+        }
+
+        .vote-button {
+            width: 100%;
+        }
+
+        .vote-button.already-voted {
+            background: #6c757d;
+        }
+
+        .vote-button.not-registered {
+            background: #dc3545;
+        }
+
         .card-selected {
-            border: 2px solid var(--accent);
-            position: relative;
+            border: 2px solid var(--primary);
+            background: rgba(109, 78, 140, 0.2);
         }
-    
-        .card-selected::before {
-            content: "✓";
-            position: absolute;
-            top: -10px;
-            right: -10px;
+
+        body.dark-mode .card-selected {
+            border-color: var(--accent);
+            background: rgba(211, 196, 227, 0.2);
+        }
+
+        .results-list, .voters-list {
+            margin-top: 15px;
+        }
+
+        .vote-count {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode .vote-count {
+            color: var(--accent);
+        }
+
+        .vote-percentage {
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .vote-percentage {
+            color: var(--text-dark);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        body.dark-mode .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.5s ease;
+        }
+
+        body.dark-mode .progress {
             background: var(--accent);
-            color: #1E1A2A;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        }
+
+        .success-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: var(--shadow);
+            gap: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
-    
+
+        .success-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .error-toast {
+            background: #dc3545;
+        }
+
+        .warning-toast {
+            background: #ffc107;
+            color: var(--text-light);
+        }
+
+        .info-toast {
+            background: #007bff;
+        }
+
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1000;
             opacity: 0;
-            visibility: hidden;
+            pointer-events: none;
             transition: all 0.3s ease;
         }
-    
+
         .modal.show {
             opacity: 1;
-            visibility: visible;
+            pointer-events: auto;
         }
-    
+
         .modal-content {
             background: var(--card-bg-light);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            max-width: 500px;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 400px;
             width: 90%;
             box-shadow: var(--shadow);
-            transform: scale(0.7);
-            transition: transform 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-    
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             backdrop-filter: blur(10px);
-            z-index: -1;
+            border: var(--glass-border);
+            text-align: center;
         }
-    
-        .modal.show .modal-content {
-            transform: scale(1);
+
+        body.dark-mode .modal-content {
+            background: var(--card-bg-dark);
         }
-    
+
         .modal-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-            position: relative;
-            z-index: 2;
+            color: var(--primary);
+            margin: 0 0 15px;
         }
-    
+
+        body.dark-mode .modal-content h3 {
+            color: var(--accent);
+        }
+
         .modal-content p {
-            font-size: 1rem;
-            color: #E0E0E0;
-            margin-bottom: 30px;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
+            margin: 0 0 20px;
+            color: var(--text-light);
         }
-    
+
+        body.dark-mode .modal-content p {
+            color: var(--text-dark);
+        }
+
         .modal-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
         }
-    
-        .modal-buttons .btn {
-            padding: 10px 30px;
+
+        .badge {
+            background: var(--secondary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
-    
-        @media (max-width: 768px) {
-            .wrapper {
-                width: 95%;
-                margin-top: 80px; /* Adjusted for smaller screens */
-            }
-    
-            .header .title {
-                font-size: 2rem;
-            }
-    
-            .header .subtitle {
-                font-size: 1rem;
-            }
-    
-            #candidatesList, .results-list {
-                grid-template-columns: 1fr;
-            }
-    
-            .btn {
-                width: 100%;
-            }
-    
-            .actions {
-                flex-direction: column;
-            }
-    
-            .actions button {
-                margin: 5px 0;
-                width: 100%;
-            }
-    
-            .container-header {
-                flex-direction: column;
-                text-align: center;
-            }
-    
-            .container-header i {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-        }
-    
-        @media (max-width: 480px) {
-            .header .title {
-                font-size: 1.8rem;
-            }
-    
-            .container-title {
-                font-size: 1.2rem;
-            }
-    
-            .vote-button, .btn {
-                font-size: 0.9rem;
-                padding: 10px 20px;
-            }
-    
-            .modal-content {
-                padding: 20px;
-            }
-    
-            .modal-content h3 {
-                font-size: 1.3rem;
-            }
-    
-            .modal-content p {
-                font-size: 0.9rem;
-            }
 
-            .language-toggle {
-                top: 8px;
-                right: 8px;
-                padding: 5px 10px;
-                font-size: 0.8rem;
-            }
-
-            .language-toggle i {
-                font-size: 0.7rem;
-            }
-
-            .language-option {
-                font-size: 0.8rem;
-                padding: 5px 12px;
-            }
-
-            .wrapper {
-                margin-top: 70px;
-            }
+        body.dark-mode .badge {
+            background: var(--accent);
+            color: var(--background-dark);
         }
     </style>
 </head>
@@ -1058,6 +676,27 @@
             </div>
         </div>
 
+        <div class="container animate__animated animate__fadeInUp hidden" id="voterRegistrationSection">
+            <div class="container-header">
+                <i class="fas fa-user-check"></i>
+                <h2 class="container-title">Voter Registration</h2>
+            </div>
+            <div class="container-body">
+                <div class="form-group">
+                    <label for="voterName">Voter Name:</label>
+                    <input type="text" id="voterName" placeholder="Enter voter name">
+                </div>
+                <div class="form-group">
+                    <label for="voterAddress">Voter Address:</label>
+                    <input type="text" id="voterAddress" placeholder="Enter voter address (0x...)">
+                </div>
+                <button id="registerVoterBtn" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Register Voter
+                </button>
+                <div id="voterRegistrationStatus" class="status hidden"></div>
+            </div>
+        </div>
+
         <div class="container animate__animated animate__fadeInUp hidden" id="adminSection">
             <div class="container-header">
                 <i class="fas fa-user-shield"></i>
@@ -1087,6 +726,23 @@
                     </div>
                 </div>
                 <div id="votingStatus" class="status hidden"></div>
+            </div>
+        </div>
+
+        <div class="container animate__animated animate__fadeInUp hidden" id="votersSection">
+            <div class="container-header">
+                <i class="fas fa-users"></i>
+                <h2 class="container-title">Registered Voters</h2>
+            </div>
+            <div class="container-body">
+                <button id="refreshVotersBtn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Refresh Voters
+                </button>
+                <div id="votersList" class="voters-list">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i> Loading voters...
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1164,68 +820,96 @@
                 subtitle: 'Democracy in Every Block',
                 walletConnection: 'Wallet Connection',
                 connectWallet: 'Connect Your Wallet',
+                voterRegistration: 'Voter Registration',
+                voterNameLabel: 'Voter Name:',
+                voterAddressLabel: 'Voter Address:',
+                registerVoter: 'Register Voter',
                 adminPanel: 'Admin Panel',
                 candidateNameLabel: 'Candidate Name:',
                 addCandidate: 'Add Candidate',
                 castVote: 'Cast Your Vote',
+                registeredVoters: 'Registered Voters',
+                refreshVoters: 'Refresh Voters',
                 liveResults: 'Live Results',
                 refreshResults: 'Refresh Results',
                 confirmVote: 'Confirm Your Vote',
                 confirm: 'Confirm',
                 cancel: 'Cancel',
                 alreadyVoted: 'Already Voted',
-                vote: 'Vote'
+                vote: 'Vote',
+                notRegistered: 'Not Registered'
             },
             hi: {
                 title: 'डीवोट होराइजन',
                 subtitle: 'हर ब्लॉक में लोकतंत्र',
                 walletConnection: 'वॉलेट कनेक्शन',
                 connectWallet: 'अपना वॉलेट कनेक्ट करें',
+                voterRegistration: 'मतदाता पंजीकरण',
+                voterNameLabel: 'मतदाता का नाम:',
+                voterAddressLabel: 'मतदाता पता:',
+                registerVoter: 'मतदाता पंजीकृत करें',
                 adminPanel: 'प्रशासन पैनल',
                 candidateNameLabel: 'उम्मीदवार का नाम:',
                 addCandidate: 'उम्मीदवार जोड़ें',
                 castVote: 'अपना वोट डालें',
+                registeredVoters: 'पंजीकृत मतदाता',
+                refreshVoters: 'मतदाताओं को ताज़ा करें',
                 liveResults: 'लाइव परिणाम',
                 refreshResults: 'परिणाम ताज़ा करें',
                 confirmVote: 'अपना वोट पुष्टि करें',
                 confirm: 'पुष्टि करें',
                 cancel: 'रद्द करें',
                 alreadyVoted: 'पहले से वोट डाला गया',
-                vote: 'वोट करें'
+                vote: 'वोट करें',
+                notRegistered: 'पंजीकृत नहीं'
             },
             mr: {
                 title: 'डीवोट हॉरिझॉन',
                 subtitle: 'प्रत्येक ब्लॉकमध्ये लोकशाही',
                 walletConnection: 'वॉलेट कनेक्शन',
                 connectWallet: 'आपला वॉलेट कनेक्ट करा',
+                voterRegistration: 'मतदार नोंदणी',
+                voterNameLabel: 'मतदाराचे नाव:',
+                voterAddressLabel: 'मतदाराचा पत्ता:',
+                registerVoter: 'मतदार नोंदणी करा',
                 adminPanel: 'प्रशासक पॅनल',
                 candidateNameLabel: 'उमेदवाराचे नाव:',
                 addCandidate: 'उमेदवार जोडा',
                 castVote: 'आपला मत द्या',
+                registeredVoters: 'नोंदणीकृत मतदार',
+                refreshVoters: 'मतदार ताजेतवाने करा',
                 liveResults: 'लाइव्ह निकाल',
                 refreshResults: 'निकाल ताजेतवाने करा',
                 confirmVote: 'आपला मत पुष्टी करा',
                 confirm: 'पुष्टी करा',
                 cancel: 'रद्द करा',
                 alreadyVoted: 'आधीच मतदान केले आहे',
-                vote: 'मत द्या'
+                vote: 'मत द्या',
+                notRegistered: 'नोंदणीकृत नाही'
             },
             ta: {
                 title: 'டிவோட் ஹோரைசன்',
                 subtitle: 'ஒவ்வொரு பிளாக்கிலும் ஜனநாயகம்',
                 walletConnection: 'வாலட் இணைப்பு',
                 connectWallet: 'உங்கள் வாலட் இணைக்கவும்',
+                voterRegistration: 'வாக்காளர் பதிவு',
+                voterNameLabel: 'வாக்காளர் பெயர்:',
+                voterAddressLabel: 'வாக்காளர் முகவரி:',
+                registerVoter: 'வாக்காளரை பதிவு செய்',
                 adminPanel: 'நிர்வாகி பேனல்',
                 candidateNameLabel: 'வேட்பாளர் பெயர்:',
                 addCandidate: 'வேட்பாளரை சேர்',
                 castVote: 'உங்கள் வாக்கை செலுத்தவும்',
+                registeredVoters: 'பதிவு செய்யப்பட்ட வாக்காளர்கள்',
+                refreshVoters: 'வாக்காளர்களை புதுப்பிக்கவும்',
                 liveResults: 'லைவ் முடிவுகள்',
                 refreshResults: 'முடிவுகளை புதுப்பிக்கவும்',
                 confirmVote: 'உங்கள் வாக்கை உறுதிப்படுத்தவும்',
                 confirm: 'உறுதிப்படுத்தவும்',
                 cancel: 'ரத்து செய்',
                 alreadyVoted: 'ஏற்கனவே வாக்களித்துவிட்டீர்கள்',
-                vote: 'வாக்களி'
+                vote: 'வாக்களி',
+                notRegistered: 'பதிவு செய்யப்படவில்லை'
             }
         };
 
@@ -1246,10 +930,16 @@
             document.querySelector('.subtitle').textContent = t.subtitle;
             document.querySelector('#walletSection .container-title').textContent = t.walletConnection;
             document.querySelector('#connectWallet').innerHTML = `<i class="fas fa-plug"></i> ${t.connectWallet}`;
+            document.querySelector('#voterRegistrationSection .container-title').textContent = t.voterRegistration;
+            document.querySelector('#voterRegistrationSection label[for="voterName"]').textContent = t.voterNameLabel;
+            document.querySelector('#voterRegistrationSection label[for="voterAddress"]').textContent = t.voterAddressLabel;
+            document.querySelector('#registerVoterBtn').innerHTML = `<i class="fas fa-user-plus"></i> ${t.registerVoter}`;
             document.querySelector('#adminSection .container-title').textContent = t.adminPanel;
             document.querySelector('#adminSection label').textContent = t.candidateNameLabel;
             document.querySelector('#addCandidateBtn').innerHTML = `<i class="fas fa-plus-circle"></i> ${t.addCandidate}`;
             document.querySelector('#votingSection .container-title').textContent = t.castVote;
+            document.querySelector('#votersSection .container-title').textContent = t.registeredVoters;
+            document.querySelector('#refreshVotersBtn').innerHTML = `<i class="fas fa-sync-alt"></i> ${t.refreshVoters}`;
             document.querySelector('#resultsSection .container-title').textContent = t.liveResults;
             document.querySelector('#refreshResultsBtn').innerHTML = `<i class="fas fa-sync-alt"></i> ${t.refreshResults}`;
             document.querySelector('#voteModal h3').textContent = t.confirmVote;
@@ -1257,22 +947,30 @@
             document.querySelector('#voteModal .btn-success').textContent = t.cancel;
 
             document.querySelectorAll('.vote-button').forEach(btn => {
-                if (!btn.disabled) {
-                    btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${t.vote}`;
-                } else {
+                if (btn.disabled && btn.classList.contains('already-voted')) {
                     btn.innerHTML = `<i class="fas fa-lock"></i> ${t.alreadyVoted}`;
+                } else if (btn.disabled && btn.classList.contains('not-registered')) {
+                    btn.innerHTML = `<i class="fas fa-user-slash"></i> ${t.notRegistered}`;
+                } else {
+                    btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${t.vote}`;
                 }
             });
         }
 
-        const contractAddress = "0xc3aa26c3fbc912e1243d16eaa9ffa919e0c66f53";
+        // Update this with your deployed contract address on Sepolia
+        const contractAddress = "0x4382bf87fedb39c8b45f6aa8f29246fd9b81ec81"; // Replace if redeployed
         const contractABI = [
             "function owner() view returns (address)",
             "function candidateCount() view returns (uint256)",
+            "function voterCount() view returns (uint256)",
             "function hasVoted(address) view returns (bool)",
+            "function isVoterRegistered(address) view returns (bool)",
+            "function voters(address) view returns (string name, address voterAddress, bool isRegistered)",
             "function candidates(uint256) view returns (string name, uint256 voteCount)",
             "function addCandidate(string calldata) external",
             "function vote(uint256) external",
+            "function registerVoter(string calldata, address) external",
+            "function getVoterDetails(address) view returns (string memory name, address voterAddress, bool isRegistered)",
             "function getCandidateVotes(uint256) view returns (string memory name, uint256 voteCount)"
         ];
         
@@ -1284,13 +982,22 @@
         let totalVotes = 0;
         let selectedCandidateId = null;
         let selectedCandidateName = '';
+        let registeredVoters = []; // Track registered voter addresses
         
         const connectWalletBtn = document.getElementById('connectWallet');
         const connectedAddressElem = document.getElementById('connectedAddress');
         const userAddressElem = document.getElementById('userAddress');
         const networkInfoElem = document.getElementById('networkInfo');
+        const voterRegistrationSectionElem = document.getElementById('voterRegistrationSection');
+        const voterNameInput = document.getElementById('voterName');
+        const voterAddressInput = document.getElementById('voterAddress');
+        const registerVoterBtn = document.getElementById('registerVoterBtn');
+        const voterRegistrationStatusElem = document.getElementById('voterRegistrationStatus');
         const adminSectionElem = document.getElementById('adminSection');
         const votingSectionElem = document.getElementById('votingSection');
+        const votersSectionElem = document.getElementById('votersSection');
+        const votersListElem = document.getElementById('votersList');
+        const refreshVotersBtn = document.getElementById('refreshVotersBtn');
         const resultsSectionElem = document.getElementById('resultsSection');
         const candidatesListElem = document.getElementById('candidatesList');
         const resultsListElem = document.getElementById('resultsList');
@@ -1315,7 +1022,6 @@
         async function verifyContract() {
             try {
                 const code = await provider.getCode(contractAddress);
-                console.log('Contract bytecode length:', code.length);
                 if (code === '0x') {
                     showToast('Contract not deployed at specified address', 'error');
                     return false;
@@ -1330,7 +1036,6 @@
 
         async function checkNetwork() {
             const network = await provider.getNetwork();
-            console.log('Current network chainId:', network.chainId);
             if (network.chainId !== 11155111) {
                 showToast('Please connect to Sepolia testnet', 'error');
                 return false;
@@ -1352,22 +1057,14 @@
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 signer = provider.getSigner();
                 userAddress = await signer.getAddress();
-                console.log('Connected address:', userAddress);
+                console.log('Connected wallet:', userAddress);
 
                 if (!await checkNetwork()) {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0xaa36a7' }],
-                        });
-                        return;
-                    } catch (switchError) {
-                        console.error('Network switch error:', switchError);
-                        showToast('Please switch to Sepolia testnet manually', 'error');
-                        connectWalletBtn.innerHTML = '<i class="fas fa-plug"></i> Connect Wallet';
-                        connectWalletBtn.disabled = false;
-                        return;
-                    }
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0xaa36a7' }],
+                    });
+                    return;
                 }
 
                 contract = new ethers.Contract(contractAddress, contractABI, signer);
@@ -1378,74 +1075,35 @@
                     return;
                 }
 
-                console.log('Testing contract functions...');
+                const ownerAddress = await contract.owner();
+                isOwner = (ownerAddress.toLowerCase() === userAddress.toLowerCase());
+                console.log('Owner:', ownerAddress, 'Is Owner:', isOwner);
 
-                let ownerAddress;
-                try {
-                    ownerAddress = await contract.owner();
-                    console.log('Contract owner:', ownerAddress);
-                    isOwner = (ownerAddress.toLowerCase() === userAddress.toLowerCase());
-                    if (isOwner) {
-                        adminSectionElem.classList.remove('hidden');
-                        showToast('Admin access granted', 'info');
-                    }
-                } catch (ownerError) {
-                    console.error('Error fetching owner:', ownerError);
-                    showToast('Could not fetch contract owner: ' + ownerError.message, 'warning');
-                }
-
-                let candidateCount;
-                try {
-                    candidateCount = await contract.candidateCount();
-                    console.log('Candidate count from contract:', candidateCount.toNumber());
-                } catch (countError) {
-                    console.error('Error fetching candidateCount:', countError);
-                    showToast('Error fetching candidate count: ' + countError.message, 'error');
-                }
-
-                if (candidateCount && candidateCount.toNumber() > 0) {
-                    try {
-                        const [name, votes] = await contract.getCandidateVotes(1);
-                        console.log('Candidate 1 data:', name, votes.toNumber());
-                    } catch (votesError) {
-                        console.error('Error fetching getCandidateVotes(1):', votesError);
-                        showToast('Error fetching candidate votes: ' + votesError.message, 'error');
-                    }
-                }
-
-                let hasVotedResult;
-                try {
-                    hasVotedResult = await contract.hasVoted(userAddress);
-                    console.log('Has voted:', hasVotedResult);
-                } catch (hasVotedError) {
-                    console.error('Error fetching hasVoted:', hasVotedError);
-                    showToast('Error fetching hasVoted: ' + hasVotedError.message, 'error');
+                if (isOwner) {
+                    adminSectionElem.classList.remove('hidden');
+                    voterRegistrationSectionElem.classList.remove('hidden');
+                    votersSectionElem.classList.remove('hidden');
                 }
 
                 connectWalletBtn.classList.add('hidden');
                 connectedAddressElem.classList.remove('hidden');
                 userAddressElem.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(userAddress.length - 4)}`;
-                votingSectionElem.classList.remove('hidden');
-                resultsSectionElem.classList.remove('hidden');
 
-                try {
-                    console.log('Loading candidates...');
+                const isRegistered = await contract.isVoterRegistered(userAddress);
+                if (isRegistered || isOwner) {
+                    votingSectionElem.classList.remove('hidden');
+                    resultsSectionElem.classList.remove('hidden');
+                    votersSectionElem.classList.remove('hidden');
                     await loadCandidates();
-                    console.log('Candidates loaded successfully');
-                } catch (candidatesError) {
-                    console.error('Failed to load candidates:', candidatesError);
-                    showToast('Error loading candidates: ' + candidatesError.message, 'error');
-                }
-
-                try {
-                    console.log('Loading results...');
                     await loadResults();
-                    console.log('Results loaded successfully');
-                } catch (resultsError) {
-                    console.error('Failed to load results:', resultsError);
-                    showToast('Error loading results: ' + resultsError.message, 'error');
+                    await loadVoters();
+                } else {
+                    votingSectionElem.classList.remove('hidden');
+                    await loadCandidates();
+                    showStatus(votingStatusElem, 'You need to be registered to vote. Contact the admin.', 'warning');
                 }
 
+                const hasVotedResult = await contract.hasVoted(userAddress);
                 if (hasVotedResult) {
                     disableVoting();
                     showStatus(votingStatusElem, 'You have already voted.', 'info');
@@ -1460,6 +1118,107 @@
             }
         });
 
+        registerVoterBtn.addEventListener('click', async () => {
+            const voterName = voterNameInput.value.trim();
+            const voterAddress = voterAddressInput.value.trim();
+
+            if (!voterName) {
+                showStatus(voterRegistrationStatusElem, 'Please enter a voter name.', 'error');
+                return;
+            }
+            if (!voterAddress || !ethers.utils.isAddress(voterAddress)) {
+                showStatus(voterRegistrationStatusElem, 'Please enter a valid Ethereum address.', 'error');
+                return;
+            }
+
+            try {
+                if (!contract) {
+                    showStatus(voterRegistrationStatusElem, 'Please connect your wallet first.', 'error');
+                    return;
+                }
+
+                if (!isOwner) {
+                    showStatus(voterRegistrationStatusElem, 'Only the contract owner can register voters.', 'error');
+                    return;
+                }
+
+                const isRegistered = await contract.isVoterRegistered(voterAddress);
+                if (isRegistered) {
+                    showStatus(voterRegistrationStatusElem, `Voter at address ${voterAddress} is already registered.`, 'warning');
+                    return;
+                }
+
+                registerVoterBtn.disabled = true;
+                registerVoterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
+                showStatus(voterRegistrationStatusElem, 'Registering voter, please confirm the transaction...', 'info');
+
+                const tx = await contract.registerVoter(voterName, voterAddress);
+                await tx.wait();
+
+                console.log('Voter registered:', voterName, voterAddress);
+                registeredVoters.push(voterAddress.toLowerCase()); // Track registered address
+                showStatus(voterRegistrationStatusElem, `Voter "${voterName}" (${voterAddress.substring(0, 6)}...) registered successfully!`, 'success');
+                showToast(`Voter "${voterName}" registered!`, 'success');
+
+                voterNameInput.value = '';
+                voterAddressInput.value = '';
+
+                await updateVotingSection(voterAddress);
+                await loadVoters();
+
+            } catch (error) {
+                console.error('Detailed error registering voter:', error.code, error.message, error.reason, error.data);
+                let errorMessage = 'Error registering voter: ';
+                if (error.code === 'ACTION_REJECTED') {
+                    errorMessage += 'Transaction rejected by user.';
+                } else if (error.code === 'CALL_EXCEPTION') {
+                    errorMessage += 'Transaction reverted: ' + (error.reason || 'Unknown reason');
+                } else {
+                    errorMessage += error.message;
+                }
+                showStatus(voterRegistrationStatusElem, errorMessage, 'error');
+                showToast('Failed to register voter', 'error');
+            } finally {
+                registerVoterBtn.disabled = false;
+                registerVoterBtn.innerHTML = `<i class="fas fa-user-plus"></i> ${translations[currentLanguage].registerVoter}`;
+            }
+        });
+
+        async function updateVotingSection(voterAddress) {
+            try {
+                console.log('Updating voting section for:', voterAddress);
+                const isRegistered = await contract.isVoterRegistered(voterAddress);
+                console.log('Is registered:', isRegistered);
+                
+                votingSectionElem.classList.remove('hidden');
+                resultsSectionElem.classList.remove('hidden');
+                votersSectionElem.classList.remove('hidden');
+
+                await loadCandidates();
+                await loadResults();
+
+                if (voterAddress.toLowerCase() === userAddress.toLowerCase()) {
+                    if (isRegistered) {
+                        const hasVoted = await contract.hasVoted(userAddress);
+                        console.log('Has voted:', hasVoted);
+                        if (!hasVoted) {
+                            showStatus(votingStatusElem, 'You are now registered and can vote!', 'success');
+                        } else {
+                            disableVoting();
+                            showStatus(votingStatusElem, 'You have already voted.', 'info');
+                        }
+                    } else {
+                        showStatus(votingStatusElem, 'You need to be registered to vote.', 'warning');
+                    }
+                } else {
+                    showStatus(votingStatusElem, 'Switch to the registered voter’s wallet to vote.', 'info');
+                }
+            } catch (error) {
+                console.error('Error updating voting section:', error);
+                showToast('Error updating voting section: ' + error.message, 'error');
+            }
+        }
+
         addCandidateBtn.addEventListener('click', async () => {
             const name = candidateNameInput.value.trim();
             if (!name) {
@@ -1473,8 +1232,6 @@
                 showStatus(addCandidateStatusElem, 'Adding candidate, please confirm the transaction...', 'info');
                 
                 const tx = await contract.addCandidate(name);
-                showStatus(addCandidateStatusElem, 'Transaction submitted, waiting for confirmation...', 'info');
-                
                 await tx.wait();
                 
                 showStatus(addCandidateStatusElem, `Candidate "${name}" added successfully!`, 'success');
@@ -1490,7 +1247,7 @@
                 showToast('Error adding candidate', 'error');
             } finally {
                 addCandidateBtn.disabled = false;
-                addCandidateBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Candidate';
+                addCandidateBtn.innerHTML = `<i class="fas fa-plus-circle"></i> ${translations[currentLanguage].addCandidate}`;
             }
         });
 
@@ -1540,17 +1297,27 @@
             }
             
             try {
+                const isRegistered = await contract.isVoterRegistered(userAddress);
+                console.log('User registered for voting:', isRegistered);
+                if (!isRegistered) {
+                    showStatus(votingStatusElem, 'You must be a registered voter to cast a vote.', 'error');
+                    return;
+                }
+
+                const hasVoted = await contract.hasVoted(userAddress);
+                if (hasVoted) {
+                    showStatus(votingStatusElem, 'You have already voted.', 'info');
+                    disableVoting();
+                    return;
+                }
+
                 showStatus(votingStatusElem, 'Casting your vote, please confirm the transaction...', 'info');
                 document.querySelectorAll('.vote-button').forEach(btn => btn.disabled = true);
                 
                 const voteBtn = document.getElementById(`vote-${selectedCandidateId}`);
-                if (voteBtn) {
-                    voteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                }
+                if (voteBtn) voteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 
                 const tx = await contract.vote(selectedCandidateId);
-                showStatus(votingStatusElem, 'Transaction submitted, waiting for confirmation...', 'info');
-                
                 await tx.wait();
                 
                 showStatus(votingStatusElem, 'Your vote has been cast successfully!', 'success');
@@ -1560,12 +1327,12 @@
                 await loadResults();
                 
             } catch (error) {
-                console.error('Error voting:', error);
-                showStatus(votingStatusElem, 'Error casting vote: ' + error.message, 'error');
+                console.error('Error voting:', error.code, error.message, error.reason, error.data);
+                showStatus(votingStatusElem, 'Error casting vote: ' + (error.reason || error.message), 'error');
                 showToast('Error casting vote', 'error');
                 
                 document.querySelectorAll('.vote-button').forEach(btn => {
-                    btn.disabled = false;
+                    if (!btn.classList.contains('not-registered')) btn.disabled = false;
                     btn.innerHTML = `<i class="fas fa-vote-yea"></i> ${translations[currentLanguage].vote}`;
                 });
             }
@@ -1576,8 +1343,6 @@
                 candidatesListElem.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading candidates...</div>';
                 
                 const count = await contract.candidateCount();
-                console.log('Candidate Count from loadCandidates:', count.toNumber());
-                
                 if (count.toNumber() === 0) {
                     candidatesListElem.innerHTML = `
                         <div class="empty-state">
@@ -1592,18 +1357,29 @@
                 let candidatesHTML = '';
                 totalVotes = 0;
                 
+                const isRegistered = await contract.isVoterRegistered(userAddress);
+                const hasVoted = await contract.hasVoted(userAddress);
+
                 for (let i = 1; i <= count; i++) {
                     const [name, votes] = await contract.getCandidateVotes(i);
                     totalVotes += votes.toNumber();
                     
+                    const voteButtonDisabled = !isRegistered || hasVoted;
+                    const buttonClass = voteButtonDisabled ? (hasVoted ? 'already-voted' : 'not-registered') : '';
+                    const buttonText = hasVoted ? translations[currentLanguage].alreadyVoted : 
+                                     (!isRegistered ? translations[currentLanguage].notRegistered : translations[currentLanguage].vote);
+                    const buttonIcon = hasVoted ? 'fa-lock' : (!isRegistered ? 'fa-user-slash' : 'fa-vote-yea');
+
                     candidatesHTML += `
                         <div class="candidate-card" id="candidate-${i}">
                             <div class="candidate-header">
                                 <h3 class="candidate-name">${name}</h3>
                             </div>
                             <div class="candidate-body">
-                                <button class="vote-button" id="vote-${i}" onclick="selectCandidate(${i})">
-                                    <i class="fas fa-vote-yea"></i> ${translations[currentLanguage].vote}
+                                <button class="vote-button ${buttonClass}" id="vote-${i}" 
+                                        ${voteButtonDisabled ? 'disabled' : ''} 
+                                        onclick="${voteButtonDisabled ? '' : `selectCandidate(${i})`}">
+                                    <i class="fas ${buttonIcon}"></i> ${buttonText}
                                 </button>
                             </div>
                         </div>
@@ -1612,20 +1388,55 @@
                 
                 candidatesListElem.innerHTML = candidatesHTML;
                 
-                const hasVoted = await contract.hasVoted(userAddress);
-                if (hasVoted) {
-                    disableVoting();
+                if (!isRegistered) {
+                    showStatus(votingStatusElem, 'You need to be registered to vote.', 'warning');
+                } else if (hasVoted) {
+                    showStatus(votingStatusElem, 'You have already voted.', 'info');
+                } else {
+                    showStatus(votingStatusElem, 'Select a candidate to vote.', 'info');
                 }
                 
             } catch (error) {
                 console.error('Error loading candidates:', error);
-                candidatesListElem.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading candidates: ${error.message}</p>
-                    </div>
-                `;
-                throw error;
+                candidatesListElem.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading candidates: ${error.message}</p></div>`;
+            }
+        }
+
+        async function loadVoters() {
+            try {
+                votersListElem.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading voters...</div>';
+                
+                const voterCount = await contract.voterCount();
+                console.log('Total voters:', voterCount.toString());
+                
+                if (voterCount.toNumber() === 0) {
+                    votersListElem.innerHTML = `<div class="empty-state"><i class="fas fa-users-slash"></i><p>No voters registered yet.</p></div>`;
+                    return;
+                }
+                
+                let votersHTML = '';
+                for (const addr of registeredVoters) {
+                    const [name, voterAddress, isRegistered] = await contract.getVoterDetails(addr);
+                    console.log('Voter check:', addr, 'Registered:', isRegistered);
+                    if (isRegistered) {
+                        votersHTML += `
+                            <div class="voter-card">
+                                <div class="voter-header">
+                                    <h3 class="voter-name">${name}</h3>
+                                </div>
+                                <div class="voter-body">
+                                    <div class="voter-address">${voterAddress.substring(0, 6)}...${voterAddress.substring(voterAddress.length - 4)}</div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+                
+                votersListElem.innerHTML = votersHTML || `<div class="empty-state"><i class="fas fa-users"></i><p>No voters to display.</p></div>`;
+                
+            } catch (error) {
+                console.error('Error loading voters:', error);
+                votersListElem.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading voters: ${error.message}</p></div>`;
             }
         }
 
@@ -1633,96 +1444,50 @@
             try {
                 resultsListElem.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading results...</div>';
                 
-                let candidateCount;
-                try {
-                    candidateCount = (await contract.candidateCount()).toNumber();
-                    console.log('Candidate Count:', candidateCount);
-                } catch (countError) {
-                    console.error('Error fetching candidateCount:', countError);
-                    throw new Error('Failed to fetch candidate count: ' + countError.message);
-                }
-
-                if (candidateCount === 0) {
-                    resultsListElem.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-chart-pie"></i>
-                            <p>No candidates to show results for.</p>
-                        </div>
-                    `;
+                const candidateCount = await contract.candidateCount();
+                if (candidateCount.toNumber() === 0) {
+                    resultsListElem.innerHTML = `<div class="empty-state"><i class="fas fa-chart-pie"></i><p>No candidates to show results for.</p></div>`;
                     return;
                 }
                 
-                try {
-                    const [testName, testVotes] = await contract.getCandidateVotes(1);
-                    console.log('Test getCandidateVotes(1):', testName, testVotes.toNumber());
-                } catch (testError) {
-                    console.error('Test getCandidateVotes(1) failed:', testError);
-                }
-
                 let resultsHTML = '';
                 totalVotes = 0;
                 
                 for (let i = 1; i <= candidateCount; i++) {
-                    try {
-                        const [_, votes] = await contract.getCandidateVotes(i);
-                        totalVotes += votes.toNumber();
-                        console.log(`Candidate ${i} votes: ${votes.toNumber()}`);
-                    } catch (innerError) {
-                        console.error(`Error fetching votes for candidate ${i}:`, innerError);
-                    }
+                    const [name, votes] = await contract.getCandidateVotes(i);
+                    totalVotes += votes.toNumber();
                 }
                 
                 for (let i = 1; i <= candidateCount; i++) {
-                    try {
-                        const [name, votes] = await contract.getCandidateVotes(i);
-                        const voteCount = votes.toNumber();
-                        const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
-                        console.log(`Candidate ${i}: ${name}, Votes: ${voteCount}, Percentage: ${percentage}%`);
-                        
-                        resultsHTML += `
-                            <div class="result-card">
-                                <div class="result-header">
-                                    <h3 class="result-name">
-                                        ${name}
-                                        ${voteCount > 0 && totalVotes > 0 && percentage >= 40 ? 
-                                            '<span class="badge"><i class="fas fa-crown"></i> Leading</span>' : ''}
-                                    </h3>
-                                </div>
-                                <div class="result-body">
-                                    <div class="vote-count">${voteCount}</div>
-                                    <div class="vote-percentage">${percentage}% of votes</div>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: ${percentage}%"></div>
-                                    </div>
+                    const [name, votes] = await contract.getCandidateVotes(i);
+                    const voteCount = votes.toNumber();
+                    const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
+                    
+                    resultsHTML += `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-name">
+                                    ${name}
+                                    ${voteCount > 0 && totalVotes > 0 && percentage >= 40 ? 
+                                        '<span class="badge"><i class="fas fa-crown"></i> Leading</span>' : ''}
+                                </h3>
+                            </div>
+                            <div class="result-body">
+                                <div class="vote-count">${voteCount}</div>
+                                <div class="vote-percentage">${percentage}% of votes</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: ${percentage}%"></div>
                                 </div>
                             </div>
-                        `;
-                    } catch (innerError) {
-                        console.error(`Error loading candidate ${i}:`, innerError);
-                        resultsHTML += `
-                            <div class="result-card">
-                                <div class="result-header">
-                                    <h3 class="result-name">Candidate ${i} (Error)</h3>
-                                </div>
-                                <div class="result-body">
-                                    <p>Error: ${innerError.message}</p>
-                                </div>
-                            </div>
-                        `;
-                    }
+                        </div>
+                    `;
                 }
                 
                 resultsListElem.innerHTML = resultsHTML;
                 
             } catch (error) {
                 console.error('Error loading results:', error);
-                resultsListElem.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading results: ${error.message}</p>
-                    </div>
-                `;
-                throw error;
+                resultsListElem.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading results: ${error.message}</p></div>`;
             }
         }
 
@@ -1735,6 +1500,7 @@
         function disableVoting() {
             document.querySelectorAll('.vote-button').forEach(btn => {
                 btn.disabled = true;
+                btn.classList.add('already-voted');
                 btn.innerHTML = `<i class="fas fa-lock"></i> ${translations[currentLanguage].alreadyVoted}`;
             });
         }
@@ -1742,26 +1508,81 @@
         refreshResultsBtn.addEventListener('click', async () => {
             refreshResultsBtn.disabled = true;
             refreshResultsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-            
             await loadResults();
-            
             refreshResultsBtn.disabled = false;
             refreshResultsBtn.innerHTML = `<i class="fas fa-sync-alt"></i> ${translations[currentLanguage].refreshResults}`;
             showToast('Results refreshed', 'info');
         });
 
+        refreshVotersBtn.addEventListener('click', async () => {
+            refreshVotersBtn.disabled = true;
+            refreshVotersBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            await loadVoters();
+            refreshVotersBtn.disabled = false;
+            refreshVotersBtn.innerHTML = `<i class="fas fa-sync-alt"></i> ${translations[currentLanguage].refreshVoters}`;
+            showToast('Voters list refreshed', 'info');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage();
+            if (window.ethereum && window.ethereum.selectedAddress) {
+                connectWalletBtn.click();
+            }
+        });
+
         if (window.ethereum) {
-            window.ethereum.on('chainChanged', () => window.location.reload());
-            window.ethereum.on('accountsChanged', () => window.location.reload());
+            window.ethereum.on('chainChanged', (chainId) => {
+                if (parseInt(chainId, 16) !== 11155111) {
+                    showToast('Switched to an unsupported network. Please reconnect to Sepolia.', 'error');
+                    disconnectWallet();
+                } else {
+                    connectWalletBtn.click();
+                }
+            });
+
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    showToast('Wallet disconnected', 'warning');
+                    disconnectWallet();
+                } else {
+                    showToast('Account changed, reconnecting...', 'info');
+                    userAddress = accounts[0];
+                    connectWalletBtn.click();
+                }
+            });
         }
 
-        window.selectCandidate = selectCandidate;
-        window.submitVote = submitVote;
-        window.showVoteModal = showVoteModal;
-        window.closeModal = closeModal;
-        window.confirmVote = confirmVote;
+        function disconnectWallet() {
+            connectWalletBtn.classList.remove('hidden');
+            connectedAddressElem.classList.add('hidden');
+            adminSectionElem.classList.add('hidden');
+            voterRegistrationSectionElem.classList.add('hidden');
+            votingSectionElem.classList.add('hidden');
+            votersSectionElem.classList.add('hidden');
+            resultsSectionElem.classList.add('hidden');
+            connectWalletBtn.innerHTML = `<i class="fas fa-plug"></i> ${translations[currentLanguage].connectWallet}`;
+            connectWalletBtn.disabled = false;
+            userAddress = null;
+            isOwner = false;
+            provider = null;
+            signer = null;
+            contract = null;
+            registeredVoters = [];
+        }
 
-        updateLanguage();
+        document.addEventListener('click', (event) => {
+            const languageToggle = document.querySelector('.language-toggle');
+            const dropdown = document.querySelector('.language-dropdown');
+            if (!languageToggle.contains(event.target) && dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && voteModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
