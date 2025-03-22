@@ -9,7 +9,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="Dvote.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
         :root {
             --primary: #6D4E8C;
@@ -42,13 +41,15 @@
             color: var(--text-dark);
         }
 
-        #particles-js {
+        #background-video {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             z-index: -1;
+            opacity: 0.8;
         }
 
         .wrapper {
@@ -637,7 +638,10 @@
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
+    <video autoplay muted loop id="background-video">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <button class="theme-toggle" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
     </button>
@@ -781,24 +785,6 @@
     </div>
 
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ddeb' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: '#ff00e4', opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-            },
-            retina_detect: true
-        });
-
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const icon = document.querySelector('.theme-toggle i');
@@ -957,8 +943,7 @@
             });
         }
 
-        // Update this with your deployed contract address on Sepolia
-        const contractAddress = "0x4382bf87fedb39c8b45f6aa8f29246fd9b81ec81"; // Replace if redeployed
+        const contractAddress = "0x4382bf87fedb39c8b45f6aa8f29246fd9b81ec81";
         const contractABI = [
             "function owner() view returns (address)",
             "function candidateCount() view returns (uint256)",
@@ -982,7 +967,7 @@
         let totalVotes = 0;
         let selectedCandidateId = null;
         let selectedCandidateName = '';
-        let registeredVoters = []; // Track registered voter addresses
+        let registeredVoters = [];
         
         const connectWalletBtn = document.getElementById('connectWallet');
         const connectedAddressElem = document.getElementById('connectedAddress');
@@ -1156,7 +1141,7 @@
                 await tx.wait();
 
                 console.log('Voter registered:', voterName, voterAddress);
-                registeredVoters.push(voterAddress.toLowerCase()); // Track registered address
+                registeredVoters.push(voterAddress.toLowerCase());
                 showStatus(voterRegistrationStatusElem, `Voter "${voterName}" (${voterAddress.substring(0, 6)}...) registered successfully!`, 'success');
                 showToast(`Voter "${voterName}" registered!`, 'success');
 
